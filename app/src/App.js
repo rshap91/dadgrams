@@ -11,11 +11,11 @@ import words_ from '../public/words.json'
 // Transform and Filter
 const SONGS = _.chain(songs_)
         // .map((s) => {return (s.toUpperCase())})
-        .filter((s) => { return (new Set(_.filter(s, (c) => {return (/^[a-zA-Z]$/.test(c))})).size < 10) })
+        .filter((s) => { return (new Set(_.filter(s, (c) => {return (/^[a-zA-Z]$/.test(c.toUpperCase()))})).size <= 13) })
         .value()
-const WORDS = _.filter(words_, (w) => {return w.length > 3})
+const WORDS = _.filter(words_, (w) => {return w.length >= 4})
 
-
+console.log(SONGS)
 
 function TextInput(props) {
 
@@ -23,7 +23,7 @@ function TextInput(props) {
     <div id='textInputDiv'>
       <Form onKeyPress={props.formSubmit}>
         <Form.Group>
-          <Form.Control id='textInput' ize="lg" type="text" placeholder="Input Word" autoComplete="off"/>
+          <Form.Control id='textInput' ize="lg" type="text" placeholder="Type Word Here..." autoComplete="off"/>
         </Form.Group>
         <Button id='submitButton' className='topButton' variant="dark" size="lg" type="submit" onClick={props.formSubmit}>
           Submit
@@ -37,12 +37,12 @@ function TextInput(props) {
 }
 
 function ScoreBox(props) {
-  console.log('SCORE ', props)
+
   return (
     <Card id='scoreBox' className="text-center">
       <Card.Header><Card.Title>Score</Card.Title></Card.Header>
-      <Card.Body>
-        {props.scores.map((score, i) => {
+      <Card.Body id={'scoreBody'}>
+        {_.reverse(props.scores).map((score, i) => {
           return <Card.Text key={"score" + i}> {score.word} :  <span style={{color:'firebrick'}}><b>{score.value}</b></span> </Card.Text>
         })}
       </Card.Body>
@@ -68,7 +68,6 @@ class Letters extends React.Component {
               x={x}
               y={y}
               key={key}
-              onClick={this.props.onLetterClick}
         />)
   }
 
@@ -88,13 +87,14 @@ class Letters extends React.Component {
 
   buildHexagons(){
     let game = this.props.game
-    let {width, height} = {width: document.body.clientWidth/2, height: document.body.clientWidth/2}
+    let width = this.props.canvasWidth
+    let height = this.props.canvasHeight
     let charset = this.props.game.charset 
     let nLetters = charset.length
     let radius = this.props.radius
     // https://calcresource.com/geom-hexagon.html#anchor-14
     let rInner = Math.sqrt(3)*radius/2
-    let startPoint = {x: width/(Math.floor(nLetters/4) + 2), y: height/2}
+    let startPoint = {x: width/4, y: height/3}
 
     const fontsize = this.props.fontsize
 
@@ -145,7 +145,7 @@ class Letters extends React.Component {
     // console.log(document.body.clientWidth, document.body.clientWidth)
     return (
       <div id='letters'>
-        <Stage width={document.body.clientWidth/2} height={document.body.clientWidth/2}>
+        <Stage width={this.props.canvasWidth} height={this.props.canvasHeight}>
           <Layer>
             {this.buildHexagons()}
           </Layer>
@@ -161,7 +161,11 @@ class App extends React.Component {
     super(props)
 
     let game = this.makeGame()
-    this.state = {game: game}
+    this.state = {
+      game: game,
+      canvasWidth: window.innerWidth*0.666,
+      canvasHeight: window.outerHeight/2
+    }
 
   }
 
@@ -222,6 +226,7 @@ class App extends React.Component {
   }
 
   textSubmit(txt){
+    console.log(this.state)
     var word = txt.toUpperCase()
     let game = this.state.game
 
@@ -261,12 +266,31 @@ class App extends React.Component {
   render() {
     return (
       <div id='gameBody'>
+        <header>Spelling Beatles</header>
         <TextInput formSubmit={this.formSubmit.bind(this)} newGame={this.newGame.bind(this)}></TextInput>
-        <div id='middle'>
-          <Letters key='letters' fontsize={35} game={this.state.game} radius={50} onLetterClick={this.onLetterClick.bind(this)}></Letters>
-          <ScoreBox scores={this.state.game.score}></ScoreBox>
+        <div id={'msg'}>
+          <ul>
+            <li>Using the letters below, enter any english word that is 4 letters or more.</li>
+            <li>The pangram may be a phrase with multiple words and spaces (no punctuation).</li>
+            <li>There is no center letter.</li>
+          </ul>
         </div>
-        <button onClick={this.showGame.bind(this)}>Show State</button>
+        <div id='middle'>
+          <Letters 
+            key='letters' 
+            fontsize={33} 
+            game={this.state.game} 
+            radius={50} 
+            canvasWidth={this.state.canvasWidth}
+            canvasHeight={this.state.canvasHeight}
+            onLetterClick={this.onLetterClick.bind(this)}>
+          </Letters>
+          <ScoreBox scores={this.state.game.score} height={this.state.canvasHeight}></ScoreBox>
+        </div>
+        <footer>
+          <p>Happy Birthday Dad!</p> 
+          <p style={{'text-align':'right'}}>Love, Son</p>
+        </footer>
       </div> 
     )
   }

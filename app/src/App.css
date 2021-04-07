@@ -1,3 +1,22 @@
+header {
+    padding: 0.5em;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center;
+    background-color: teal;
+    color:floralwhite;
+}
+
+footer {
+    padding: 0.5em;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center;
+
+}
+
 #textInputDiv form {
     display: flex;
     flex-direction: row;
@@ -6,12 +25,18 @@
 #textInput{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 50px;
-    background-color: cadetblue;
-    text-shadow: darkred;
+    background-color:white;
     vertical-align: middle;
     text-transform: uppercase;
+    border: 2px solid black;
+    box-shadow: firebrick;
 }
 
+#textInput::placeholder {
+    opacity: 0.6;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-transform: none;
+}
 
 .form-group {
     padding-bottom: 0;
@@ -35,33 +60,42 @@
     font-size: 40px;
 }
 
-#scoreBox {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin:0;
-    padding:0;
-    flex-grow:0.5;
-    opacity:0.66;
-}
 
 #scoreBox {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin:0;
-    padding:0;
-    flex-grow:0.5;
+    margin:0.5em;
+    padding:0.5em;
     opacity:0.8;
     color: rgba(0, 0, 0, 1);
+}
+
+#scoreBody {
+    overflow: scroll;
+    max-height: 20em;
+}
+
+.card-text {
+    padding:0 0.5em 0 0.5em;
+    margin:0 0.5em 0.5em 0;
 }
 
 #middle {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    margin: 2em;
+    margin: 0.5em;
     padding: 0;
     background-image: url('../public/beatles.png');
     background-repeat: no-repeat;
     background-size:contain;
     background-position:center;
+}
+
+#msg {
+    margin:0.5em;
+    font-size: large;
+    colo: slategray;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 #letters {
