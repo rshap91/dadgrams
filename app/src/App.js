@@ -94,7 +94,7 @@ class Letters extends React.Component {
     let radius = this.props.radius
     // https://calcresource.com/geom-hexagon.html#anchor-14
     let rInner = Math.sqrt(3)*radius/2
-    let startPoint = {x: width/4, y: height/3}
+    let startPoint = {x: width/3.5, y: height/3}
 
     const fontsize = this.props.fontsize
 
@@ -261,6 +261,12 @@ class App extends React.Component {
       this.textSubmit(txt)
     }
   }
+
+  shuffleLetters() {
+    let game = this.state.game
+    game.charset = _.shuffle(game.charset)
+    this.setState({game})
+  }
   
 
   render() {
@@ -285,11 +291,14 @@ class App extends React.Component {
             canvasHeight={this.state.canvasHeight}
             onLetterClick={this.onLetterClick.bind(this)}>
           </Letters>
+          <Button id='shuffle' className='topButton' variant="dark" type="submit" onClick={this.shuffleLetters.bind(this)}>
+            Shuffle
+          </Button>
           <ScoreBox scores={this.state.game.score} height={this.state.canvasHeight}></ScoreBox>
         </div>
         <footer>
-          <p>Happy Birthday Dad!</p> 
-          <p style={{'text-align':'right'}}>Love, Son</p>
+          <p style={{"color":"teal"}}>Happy Birthday Dad!</p> 
+          <p style={{'textAlign':'right'}}>Love, Son</p>
         </footer>
       </div> 
     )

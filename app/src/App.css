@@ -17,6 +17,15 @@ footer {
 
 }
 
+#shuffle {
+    margin-bottom: 10px;
+    max-height: 3em;
+    width: 8%;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: larger;
+    align-self:flex-end;
+}
+
 #textInputDiv form {
     display: flex;
     flex-direction: row;
@@ -67,11 +76,13 @@ footer {
     padding:0.5em;
     opacity:0.8;
     color: rgba(0, 0, 0, 1);
+    height: 34em;
+    max-height: 34em;
 }
 
 #scoreBody {
     overflow: scroll;
-    max-height: 20em;
+    max-height: 25em;
 }
 
 .card-text {
