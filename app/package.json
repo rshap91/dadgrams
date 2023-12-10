@@ -8,17 +8,18 @@
   },
   "license": "MIT",
   "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
     "bootstrap": "~4.6.0",
-    "react-bootstrap": "1.5.2",
-    "react-konva": "^16.13.0-6",
     "konva": "~7.2.5",
-    "lodash": "~4.17.21"
+    "lodash": "~4.17.21",
+    "react": "^16.13.1",
+    "react-bootstrap": "1.5.2",
+    "react-dom": "^16.13.1",
+    "react-konva": "^16.13.0-6"
   },
   "devDependencies": {
     "babel-preset-nano-react-app": "^0.1.0",
-    "parcel": "^2.0.0-alpha.3.2"
+    "parcel": "^2.10.3",
+    "process": "^0.11.10"
   },
   "babel": {
     "presets": [
